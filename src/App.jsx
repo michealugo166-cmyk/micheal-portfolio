@@ -169,6 +169,7 @@ function HomePage({ setPage }) {
           <div style={{ display: "flex", gap: 12 }}>
             <button onClick={() => setPage("Portfolio")} style={{ padding: "13px 28px", borderRadius: 100, background: "#1A1A1A", color: "#F7F4EE", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Outfit', sans-serif" }}>View My Work →</button>
             <button onClick={() => setPage("Contact")} style={{ padding: "12px 28px", borderRadius: 100, background: "transparent", color: "#1A1A1A", border: "1.5px solid rgba(26,26,26,0.18)", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'Outfit', sans-serif" }}>Hire Me</button>
+            <a href="/cv.pdf" download="Okafor-Michael-CV.pdf" style={{ padding: "12px 28px", borderRadius: 100, background: "transparent", color: "#1A1A1A", border: "1.5px solid rgba(26,26,26,0.18)", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'Outfit', sans-serif", textDecoration: "none", display: "inline-flex", alignItems: "center" }}>Download CV ↓</a>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: "2.2rem" }}>
             <div style={{ display: "flex" }}>
