@@ -170,6 +170,18 @@ const PROJECTS = [
     desc: "A simple, clean to-do list app for organizing daily tasks.",
     detail: "Lumio To-Do List is a simple task manager for keeping track of your daily to-dos — add, check off, and organize tasks in a clean, distraction-free interface.",
   },
+  {
+    id: 3,
+    title: "Receipta",
+    category: "Client Project",
+    tags: ["Receipt App", "Web App"],
+    accentDark: "#18181b",
+    accentBg: "#F0EEE9",
+    image: "/receipta.png",
+    url: "https://receipta.nippogasolutions.org/",
+    desc: "A receipt management web app for creating and organizing transaction records.",
+    detail: "Receipta is a web-based receipt solution built to help users create, manage, and access transaction receipts through a simple, organized interface.",
+  },
 ];
 
 const SERVICES = [
@@ -382,7 +394,7 @@ function HomePage({ setPage }) {
           </div>
           <button onClick={() => setPage("Portfolio")} style={{ padding: "9px 20px", borderRadius: 100, border: "1.5px solid rgba(24, 24, 27, 0.15)", background: "transparent", fontSize: 15, fontWeight: 600, cursor: "pointer" }}>View All →</button>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 380px))", gap: 20 }}>
+        <div className="project-grid-responsive">
           {PROJECTS.map((p, i) => <ProjectCard key={p.id} project={p} hovered={hoveredProject === p.id} setHovered={setHoveredProject} delay={i * 60} />)}
         </div>
       </section>
@@ -481,7 +493,7 @@ function PortfolioPage() {
         <p style={{ fontSize: 16, color: "var(--text-secondary)", marginBottom: "3rem", maxWidth: 520 }}>
           I'm just getting started — here are a few of my early projects. More case studies are on the way as I keep building.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 380px))", gap: 20 }}>
+        <div className="project-grid-responsive">
           {PROJECTS.map((p, i) => <ProjectCard key={p.id} project={p} hovered={hovered === p.id} setHovered={setHovered} delay={i * 60} />)}
         </div>
       </section>
