@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import lumioImg from "./assets/Lumio page.png";
 import personalImg from "./assets/personal.jpeg";
 import todoImg from "./assets/todo.png";
+import cvPdf from "./assets/Okafor_Micheal_Ugochukwu_CV.pdf";
 
 // ─── 3D scroll-reveal effect ────────────────────────────────────────────────
 // Elements register with a rotation distance + threshold delay. A single
@@ -324,7 +325,7 @@ function HomePage({ setPage }) {
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <button onClick={() => setPage("Portfolio")} style={{ padding: "13px 28px", borderRadius: 100, background: "#18181b", color: "#ffffff", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>View My Work →</button>
             <button onClick={() => setPage("Contact")} style={{ padding: "12px 28px", borderRadius: 100, background: "transparent", color: "#18181b", border: "1.5px solid rgba(24, 24, 27, 0.15)", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>Hire Me</button>
-            <a href="/cv.pdf" download="Okafor-Michael-CV.pdf" style={{ padding: "12px 28px", borderRadius: 100, background: "transparent", color: "#18181b", border: "1.5px solid rgba(24, 24, 27, 0.15)",
+            <a href={cvPdf} download="Okafor_Micheal_Ugochukwu_CV.pdf" style={{ padding: "12px 28px", borderRadius: 100, background: "transparent", color: "#18181b", border: "1.5px solid rgba(24, 24, 27, 0.15)",
               fontSize: 14, fontWeight: 600, cursor: "pointer", textDecoration: "none", display: "inline-flex", alignItems: "center" }}>Download CV ↓</a>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginTop: "2.2rem" }}>
