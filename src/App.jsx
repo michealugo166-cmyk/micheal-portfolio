@@ -116,6 +116,8 @@ const NAV_ITEMS = ["Home", "About", "Portfolio", "Blog", "Contact"];
 const EMAIL = "michealugo166@gmail.com";
 const WHATSAPP_DISPLAY = "+234 707 134 1196";
 const WHATSAPP_LINK = "https://wa.me/2347071341196";
+const CONTACT_FORM_ENDPOINT = `https://formsubmit.co/ajax/${EMAIL}`;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // "Hello" in a spread of languages — including Igbo and Yoruba, a nod to home.
 const HELLO_WORDS = [
@@ -573,6 +575,8 @@ function ContactInfoCard({ icon, label, value, delay = 0 }) {
 function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", budget: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const [focusedField, setFocusedField] = useState(null);
   const headingReveal = useReveal3D(10, 0);
   const infoReveal = useReveal3D(12, 0);
@@ -581,7 +585,43 @@ function ContactPage() {
   const formTilt = useTilt(2);
 
   const handle = (k, v) => setForm(f => ({ ...f, [k]: v }));
-  const submit = () => { if (form.name && form.email && form.message) setSent(true); };
+  const submit = async () => {
+    if (!form.name || !form.email || !form.message || sending) return;
+
+    if (!EMAIL_REGEX.test(form.email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    setSending(true);
+    setError("");
+
+    try {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          budget: form.budget,
+          message: form.message,
+          _subject: `Portfolio message from ${form.name}`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+
+      if (!response.ok) throw new Error("Message failed");
+      setSent(true);
+    } catch {
+      setError("Message could not be sent. Please email me directly instead.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   const fieldStyle = (key) => ({
     width: "100%", padding: "11px 14px", borderRadius: 12, fontSize: 16, color: "#18181b", background: "#FAFAFA",
@@ -700,7 +740,14 @@ function ContactPage() {
                       style={{ ...fieldStyle("message"), resize: "vertical" }}
                     />
                   </div>
-                  <button onClick={submit} style={{ padding: "13px", borderRadius: 12, background: "#18181b", color: "#ffffff", border: "none", fontSize: 16, fontWeight: 700, cursor: "pointer", marginTop: "0.4rem" }}>Send Message →</button>
+                  {error && <p style={{ color: "#b42318", fontSize: 14, fontWeight: 700, lineHeight: 1.5 }}>{error}</p>}
+                  <button
+                    onClick={submit}
+                    disabled={sending}
+                    style={{ padding: "13px", borderRadius: 12, background: "#18181b", color: "#ffffff", border: "none", fontSize: 16, fontWeight: 700, cursor: sending ? "default" : "pointer", marginTop: "0.4rem", opacity: sending ? 0.7 : 1 }}
+                  >
+                    {sending ? "Sending..." : "Send Message →"}
+                  </button>
                 </div>
               )}
             </div>
